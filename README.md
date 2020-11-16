@@ -15,9 +15,9 @@ For the Final lab you will be creating a refactoring and expanding the ATM progr
 
 * For the new lab start by adding the following features: 
 
-    * Change the pin of the bank account (If the pin is in use, don't change it and alert the user that it's taken). 
-	* Display the date and time on all pages
-	* Display a warning about fees that must be confirmed before withdrawing or depositing money 
+    DONE!* Change the pin of the bank account (If the pin is in use, don't change it and alert the user that it's taken). 
+	DONE!* Display the date and time on all pages
+	DONE!* Display a warning about fees that must be confirmed before withdrawing or depositing money 
 
 * Refactor the following code: 
 	
