@@ -1,16 +1,18 @@
  /* When the page loads get the ATM accounts out of local storage */ 
- let atm = new Atm(); 
- atm.accounts = JSON.parse(localStorage.getItem("atm_accts")); 
+ //let atm = new Atm(); 
+ //atm.accounts = JSON.parse(localStorage.getItem("atm_accts")); 
  /* if there are no accounts, make sure we initialize with an empty array */
- if(atm.accounts === null){
-     atm.accounts = []; 
- }
+ //if(atm.accounts === null){
+   //  atm.accounts = []; 
+ //}
 
  /*----------- the code to manipute data/ logic goes here --------*/ 
  //Constructor function, creates ATM with methods to create and account and get an existing accounts.
- function Atm() {
+ class Atm {
+     constructor (){
      this.accounts = [];
      this.currentAccount = null; 
+    
  //creates a new account and pushes it into accounts array
      this.createAccount = function (pin){
              let newAccount = new Account(pin);
@@ -19,11 +21,28 @@
              updateATM(); 
              return newAccount; 
      };
+
+     this.updateAccount = function(newPIN){
+  // let arrAccount = atm.getAccount(atm.currentAccount.pin);
+ //   atm.accounts[currentAcct.index].pin = pin;   
+        for (let i = 0; i < this.accounts.length; i++) {
+            if (this.accounts[i].pin === this.currentAccount.pin) {
+                console.log ("updateAccount?");
+                //return account that mathces PIN
+                this.currentAccount.changePIN(newPIN);
+                this.accounts[i] = this.currentAccount;
+                updateATM();
+                console.log ("updateATM?");
+            }
+        }
+    
+     }
  //loops throug exisitng accounts to see if the PIN entered exists, if it does, open is and sets it as current account
      this.getAccount = function (pin){
          for (let i = 0; i < this.accounts.length; i++) {
              if (this.accounts[i].pin === pin) {
                  //return the bank account that matches our pin
+                 console.log ("GetAccount");
                  this.currentAccount = this.accounts[i]; 
                  updateATM(); 
                  return this.accounts[i];
@@ -31,9 +50,18 @@
          }
          return null; 
      }; 
+    }
+    }
+    let atm = new Atm(); 
+ atm.accounts = JSON.parse(localStorage.getItem("atm_accts")); 
+ /* if there are no accounts, make sure we initialize with an empty array */
+ if(atm.accounts === null){
+     atm.accounts = []; 
  }
+
  //Accounts constructor with the math for the funtions
- function Account(pin) { 
+ class Account { 
+     constructor(pin){
      this.pin = pin;
      this.balance = 0;
 
@@ -50,14 +78,16 @@
      }
      this.changePIN = function(newPIN) {
          this.pin = newPIN;
+         console.log ("newPIN??")
          updateATM();
 
      }
        
-
+    }
  }
  //we need to access this to update the PIN
  function updateATM(){ 
+     console.log(atm.accounts);
      localStorage.setItem("atm_accts",  JSON.stringify(atm.accounts) ); 
      
 
@@ -78,6 +108,8 @@
      /* hide the menu and display the login */ 
      document.getElementById("menu").style.display = "none";
      document.getElementById("start").style.display = "block";
+     //clear current account
+     atm.currentAccount = null;
      
  }
 
@@ -102,15 +134,18 @@
      displayBalance(); 
  }
  function displayChangePIN() {
-    let newPIN = Number(prompt("Enter new PIN", ""));
+    let pin = Number(prompt("Enter new PIN", ""));
 
-    if(atm.getAccount(newPIN) != null){
-        alert("This PIN is in use, please choose a different PIN"); 
+    if(atm.getAccount(pin) === null){
+        console.log("changePIN?");
+        atm.updateAccount(pin);
+        console.log ("did we change PIN")
+        /*atm.currentAccount.changePIN(newPIN);
+    displayBalance();*/
 
     } else {
+        alert("This PIN is in use, please choose a different PIN");
     
-    atm.currentAccount.changePIN(newPIN);
-    displayBalance();
     }
  }
  //accesses the ATM constructor funtions to see if there is a current account with that PIN otherwise creates new account
@@ -126,8 +161,8 @@
  //accesses teh ATM constructor to check if account exists and logs in if it does.
  function login() {
      let pin = parseInt(document.getElementById("pinput").value);
-     atm.getAccount(pin);
-     if( atm.currentAccount === null){
+     let acct = atm.getAccount(pin);
+     if( acct === null){
          alert("Invalid pin!"); 
      } else {
          displayMenu(); 
