@@ -1,0 +1,36 @@
+body {
+    font-family: 'Lora', serif; 
+    background: url("change.jpg") no-repeat center center fixed;
+    background-size: cover;
+    text-align: center;
+
+    
+    
+    
+}
+#header {
+    color: #dba37b;
+    width: 100;
+    padding: 20px;
+    text-align: center;
+    
+    -webkit-text-stroke: black;
+    -webkit-text-stroke-width: 1px;
+}
+#date {
+    font-size: medium;
+    color: black;
+
+}
+h1 {
+    font-size: 100px;
+    -webkit-text-stroke: black;
+    -webkit-text-stroke-width: 2px;
+    color: #dba37b;
+
+}
+#balance{
+    font-size: 50px;
+    color: black;
+}
+

@@ -4,27 +4,40 @@
 
 <head>
     <title>ATM Refractor</title>
+    <meta charset="UTF-8">
+        <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div id = "headline">
-        <h1>ATM</h1>
-        <p id = "date"></p>
-    </div>
-    <div id="start"> 
-        <label>Input your pin:</label>
-        <input id="pinput">
-        <button onclick="login()">Submit</button>
-        <p id="account"></p>
+    
+        <div id = "header" class = "row">
+            <div class = "col">
+                <h1>ATM</h1>
+                <p id = "date"></p>
+            </div>
+        </div>
+    
+    
+        <div id="start" class = "row">
+            <div class="col-lg">
+           
+                <label>Input your pin:</label>
+                <input id="pinput">
+                <button onclick="login()">Submit</button>
+                <p id="account"></p>
 
-        <label>New account:</label>
-        <input id="newpinput">
-        <button onclick="newAccount()">Submit</button>
+                <label>New account:</label>
+                <input id="newpinput">
+                <button onclick="newAccount()">Submit</button>
+            </div>
     </div>
+    
 
     <div id="menu" style="display:none"> 
         <button onclick="displayBalance()">Get Balance</button>
-        <p id="balance"></p>
+        <p id="balance">$</p>
 
         <button onclick="displayWithrawal()">Withdrawal</button>
 
@@ -36,6 +49,7 @@
 
         
     </div>
+    
 
     <script src = "index.js"></script>
      

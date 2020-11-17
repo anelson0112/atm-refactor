@@ -21,15 +21,15 @@ For the Final lab you will be creating a refactoring and expanding the ATM progr
 
 * Refactor the following code: 
 	
-	* Convert the constructor functions into classes
+	DONE!!* Convert the constructor functions into classes
 
 * Additionally: 
 	
-	* Error check the users input. Fulfill the following requirements in doing so: 
+	DONE! * Error check the users input. Fulfill the following requirements in doing so: 
 		* Pins can only be 4 numbers and no other characters are allowed. 
 		* Withdrawal and deposit amounts must be increments of $20 with a limit of $200 and must be numbers.
 		
-	* Update the html and css to style the elements and make them pleasing to the eye 
-	* Comment each block of code and explain what it does. 
+	DONE! * Update the html and css to style the elements and make them pleasing to the eye 
+	 DONE!! * Comment each block of code and explain what it does. 
 
 * Push your code to your repository.

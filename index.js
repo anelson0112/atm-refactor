@@ -12,9 +12,9 @@
      constructor (){
      this.accounts = [];
      this.currentAccount = null; 
-    
+     }
  //creates a new account and pushes it into accounts array
-     this.createAccount = function (pin){
+     createAccount(pin){
              let newAccount = new Account(pin);
              this.accounts.push(newAccount);
              this.currentAccount = newAccount; 
@@ -22,7 +22,7 @@
              return newAccount; 
      };
 
-     this.updateAccount = function(newPIN){
+     updateAccount(newPIN){
   // let arrAccount = atm.getAccount(atm.currentAccount.pin);
  //   atm.accounts[currentAcct.index].pin = pin;   
         for (let i = 0; i < this.accounts.length; i++) {
@@ -38,7 +38,7 @@
     
      }
  //loops throug exisitng accounts to see if the PIN entered exists, if it does, open is and sets it as current account
-     this.getAccount = function (pin){
+     getAccount(pin){
          for (let i = 0; i < this.accounts.length; i++) {
              if (this.accounts[i].pin === pin) {
                  //return the bank account that matches our pin
@@ -51,7 +51,7 @@
          return null; 
      }; 
     }
-    }
+    
     let atm = new Atm(); 
  atm.accounts = JSON.parse(localStorage.getItem("atm_accts")); 
  /* if there are no accounts, make sure we initialize with an empty array */
@@ -64,27 +64,34 @@
      constructor(pin){
      this.pin = pin;
      this.balance = 0;
-
+     };
      //withdrawal
-     this.withdrawal = function(wdAmount){
+     withdrawal(wdAmount){
+         
          this.balance = this.balance - wdAmount - 1.00; 
          updateATM(); 
-     }
+     };
 
      //deposit 
-     this.deposit = function(depAmount){
-         this.balance = this.balance + depAmount - 1.00;
-         updateATM(); 
-     }
-     this.changePIN = function(newPIN) {
+     deposit(depAmount){
+
+        
+        
+            this.balance = this.balance + depAmount - 1.00;
+            updateATM(); 
+       
+          
+           
+     };
+     changePIN(newPIN) {
          this.pin = newPIN;
          console.log ("newPIN??")
          updateATM();
 
+     };
+     
      }
-       
-    }
- }
+ 
  //we need to access this to update the PIN
  function updateATM(){ 
      console.log(atm.accounts);
@@ -120,43 +127,64 @@
 
  function displayWithrawal() {
      confirm("There is a $1.00 fee associated with this transaction, would you like to proceed?");
+
      let amount = Number(prompt("How much would you like to withdrawal?", ""));
+
+     if (amount <= 200 && (amount % 20 === 0) && amount < atm.currentAccount.balance){
      
      atm.currentAccount.withdrawal(amount); 
      displayBalance(); 
+    } else {
+        alert("The amount needs to be in increments of $20, less than $200 and no more than your current balance");
+    } 
  }
  
  function displayDeposit() {
-    confirm("There is a $1.00 fee associated with this transaction, would you like to proceed?");;
-     let amount = Number(prompt("How much would you like to deposit?", ""));
+    
+    confirm("There is a $1.00 fee associated with this transaction, would you like to proceed?");
      
-     atm.currentAccount.deposit(amount); 
+    let amount = Number(prompt("How much would you like to deposit?", ""));
+    if (amount <= 200 && (amount % 20 === 0)) {
+
+    atm.currentAccount.deposit(amount); 
      displayBalance(); 
- }
+    } else {
+        alert("Please enter an amount less than $200 and in increments of 20!");
+    }
+}
  function displayChangePIN() {
     let pin = Number(prompt("Enter new PIN", ""));
 
-    if(atm.getAccount(pin) === null){
+    if (pin >= 1000 && pin <= 9999){
+        if(atm.getAccount(pin) === null){
         console.log("changePIN?");
         atm.updateAccount(pin);
         console.log ("did we change PIN")
         /*atm.currentAccount.changePIN(newPIN);
-    displayBalance();*/
+        displayBalance();*/
 
-    } else {
+        } else {
         alert("This PIN is in use, please choose a different PIN");
-    
-    }
+        }
+    }else {
+        alert("Enter a PIN that is 4 numbers in length");
+    }   
  }
  //accesses the ATM constructor funtions to see if there is a current account with that PIN otherwise creates new account
  function newAccount(){
          let pin = parseInt(document.getElementById("newpinput").value);
-         if(atm.getAccount(pin) != null){
+
+         if (pin >= 1000 && pin <= 9999){
+
+            if(atm.getAccount(pin) != null){
              alert("This account exists!"); 
-         } else {
+            } else {
              atm.createAccount(pin);
              displayMenu(); 
          } 
+        }else {
+            alert("Enter a PIN that is 4 numbers in length");
+        }
      }
  //accesses teh ATM constructor to check if account exists and logs in if it does.
  function login() {
